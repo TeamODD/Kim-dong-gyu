@@ -2,16 +2,9 @@ using UnityEngine;
 
 public class DoorTrigger : MonoBehaviour
 {
+    public GameObject pressFPlane; // Plane 오브젝트 연결할 변수
     private bool isPlayerNearby = false;
     private bool hasShownMessage = false;
-
-    void Update()
-    {
-        if (isPlayerNearby && Input.GetKeyDown(KeyCode.F))
-        {
-            Debug.Log("hi!");
-        }
-    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -21,7 +14,7 @@ public class DoorTrigger : MonoBehaviour
 
             if (!hasShownMessage)
             {
-                Debug.Log("Press F");
+                pressFPlane.SetActive(true); // Plane을 보이게
                 hasShownMessage = true;
             }
         }
@@ -32,7 +25,17 @@ public class DoorTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerNearby = false;
-            hasShownMessage = false; // 다시 들어올 때 한 번 더 출력되도록 초기화
+            hasShownMessage = false;
+
+            pressFPlane.SetActive(false); // 영역 벗어나면 다시 숨기기
+        }
+    }
+
+    private void Update()
+    {
+        if (isPlayerNearby && Input.GetKeyDown(KeyCode.F))
+        {
+            Debug.Log("컷씬 진행"); //이 코드를 컷씬 진행으로 바꾸면 됨. 
         }
     }
 }
