@@ -48,20 +48,16 @@ public class Puzzle4 : MonoBehaviour
                     }
                 }
             }
-            if (scroll > 0f)
-            {
-                OnScrollUp();
-            }
-            else if (scroll < 0f)
-            {
-                OnScrollDown();
-            }
-        }
-
-
-
             
-
+        }
+        if (scroll > 0f)
+        {
+            OnScrollUp();
+        }
+        else if (scroll < 0f)
+        {
+            OnScrollDown();
+        }
     }
 
     private bool _isSolvedDial()
