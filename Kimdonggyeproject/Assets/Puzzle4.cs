@@ -5,7 +5,7 @@ using UnityEngine;
 public class Puzzle4 : MonoBehaviour
 {
     
-    private float[] angles = new float[] { 0f, 45f, 90f, 135f, 180f }; // 0 <= theta <= 360 , 사진각도
+    private float[] angles = new float[] { 144f , -60f, 108f , -40f , -135f }; // 0 <= theta <= 360 , 사진각도
     private float _currentDegree;
     private int currentSelectedIndex;
     public List<GameObject> DialGameObjectList = new List<GameObject>();
@@ -89,23 +89,44 @@ public class Puzzle4 : MonoBehaviour
         }
         return isFinished;
     }
+    
     void OnScrollUp()
     {
-        Debug.Log("마우스 휠 ↑ 스크롤 감지!");
+        //Debug.Log("마우스 휠 ↑ 스크롤 감지!");
         // 위로 스크롤 시 실행할 함수 내용
 
-            _currentDegree += 15f;
-            if (_currentDegree >= 360)
-            {
-                _currentDegree = _currentDegree - 360;
-            }
+        if(_isSelectedDial == 0)
+        { 
+            _currentDegree = 24f;
+        }
+        else if (_isSelectedDial == 1)
+        {
+            _currentDegree = 30f;
+        }
+        else if (_isSelectedDial == 2)
+        {
+            _currentDegree = 36f;
+        }
+        else if (_isSelectedDial == 3)
+        {
+            _currentDegree = 40f;
+        }
+        else if (_isSelectedDial == 4)
+        {
+            _currentDegree = 45f;
+        }
+        if (_currentDegree >= 360)
+        {
+            _currentDegree = _currentDegree - 360;
+        }
             DialGameObjectList[_isSelectedDial].transform.Rotate(0, 0, _currentDegree);
             if (_currentDegree == angles[_isSelectedDial])
             {
                 _isSolved[_isSelectedDial] = true;
                 if (_isSolvedDial())
                 {
-                    //모든 암호해결
+                Debug.Log("Clear!");
+                //모든 암호해결
                 }
             }
     }
@@ -114,8 +135,27 @@ public class Puzzle4 : MonoBehaviour
     {
         Debug.Log("마우스 휠 ↓ 스크롤 감지!");
         // 아래로 스크롤 시 실행할 함수 내용
-            _currentDegree -= 15f;
-            if (_currentDegree < 0)
+        if (_isSelectedDial == 0)
+        {
+            _currentDegree = -24f;
+        }
+        else if (_isSelectedDial == 1)
+        {
+            _currentDegree = -30f;
+        }
+        else if (_isSelectedDial == 2)
+        {
+            _currentDegree = -36f;
+        }
+        else if (_isSelectedDial == 3)
+        {
+            _currentDegree = -40f;
+        }
+        else if (_isSelectedDial == 4)
+        {
+            _currentDegree = -45f;
+        }
+        if (_currentDegree < 0)
             {
                 _currentDegree = _currentDegree + 360;
             }
@@ -125,7 +165,8 @@ public class Puzzle4 : MonoBehaviour
                 _isSolved[_isSelectedDial] = true;
                 if (_isSolvedDial())
                 {
-                    //모든 암호해결
+                Debug.Log("Clear!");
+                //모든 암호해결
                 }
             }
     }
