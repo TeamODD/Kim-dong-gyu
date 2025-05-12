@@ -20,6 +20,7 @@ public class Puzzle4 : MonoBehaviour
     }
     void Update()
     {
+
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         if (Input.GetMouseButtonDown(0))
         {
