@@ -46,6 +46,7 @@ public class ClockTrigger : MonoBehaviour
             {
                 Debug.Log("퍼즐 진행");
                 // Puzzle4 인스턴스를 통해 변수에 접근
+                
                 puzzle4.isPlayingPuzzle4 = true;
                 
             }
