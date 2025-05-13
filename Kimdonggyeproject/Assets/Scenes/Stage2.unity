@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 1127325595}
   - component: {fileID: 1127325594}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: Stage2Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

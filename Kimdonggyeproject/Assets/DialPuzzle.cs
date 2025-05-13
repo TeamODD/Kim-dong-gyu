@@ -50,7 +50,10 @@ public class GameManager : MonoBehaviour
                 correctCount++;
             }
         }
-
+        //correctCount == images.Count라면
+        //3초간 텍스트 띄우고 슬립
+        //클리어 하면 퍼즐 다시 못하게
+        //
         clearText.SetActive(correctCount == images.Count);
     }
 }
