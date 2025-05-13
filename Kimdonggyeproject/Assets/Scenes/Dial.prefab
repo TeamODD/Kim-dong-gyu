@@ -475,7 +475,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1830204330661440223}
-  - component: {fileID: 4561481639215962750}
+  - component: {fileID: -75927989510725956}
   m_Layer: 0
   m_Name: Dial
   m_TagString: Untagged
@@ -504,7 +504,7 @@ Transform:
   - {fileID: 1923811538145309656}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4561481639215962750
+--- !u!114 &-75927989510725956
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -513,16 +513,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 5847851846957597012}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 104d542014bdd3c469e9a9922d04f819, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a112e65d41d3e04a915d7decd779415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DialGameObjectList:
-  - {fileID: 4190852438904721822}
-  - {fileID: 4165616145481244724}
-  - {fileID: 8911913901127102743}
-  - {fileID: 9143093862346031238}
-  - {fileID: 2081972650664520805}
-  isPlayingPuzzle4: 0
+  images:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  clearText: {fileID: 0}
 --- !u!1 &8911913901127102743
 GameObject:
   m_ObjectHideFlags: 0
