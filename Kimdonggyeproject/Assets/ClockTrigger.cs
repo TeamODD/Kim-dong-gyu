@@ -40,14 +40,16 @@ public class ClockTrigger : MonoBehaviour
         }
     }
 
-        private void Update()
+    private void Update()
+    {
+        if (isPlayerNearby && Input.GetKeyDown(KeyCode.F))
         {
-            if (isPlayerNearby && Input.GetKeyDown(KeyCode.F))
-            {
-                Debug.Log("퍼즐 진행");
-                // Puzzle4 인스턴스를 통해 변수에 접근
-                puzzle4.isPlayingPuzzle4 = true;
-            }
-        }
-    }
+            Debug.Log("퍼즐 진행");
+            // Puzzle4 인스턴스를 통해 변수에 접근
 
+            puzzle4.isPlayingPuzzle4 = true;
+
+        }
+
+    }
+}
