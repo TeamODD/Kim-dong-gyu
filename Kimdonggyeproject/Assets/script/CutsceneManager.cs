@@ -81,7 +81,7 @@ public class CutsceneManager : MonoBehaviour
     {
         yield return StartCoroutine(FadeColor(Color.clear, Color.white, 1f));
         yield return new WaitForSeconds(0.5f);
-        //SceneManager.LoadScene("stage0");
+        SceneManager.LoadScene("Stage0");
     }
 
     IEnumerator Fade(float from, float to, float duration)
