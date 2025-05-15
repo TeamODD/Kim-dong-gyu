@@ -10,6 +10,8 @@ public class CutsceneManager : MonoBehaviour
     public Image fadeImage;
     public RawImage videoRawImage;
     public VideoPlayer videoPlayer;
+    public Image endingPhotoImage; 
+
 
     private bool hasStarted = false;
     private bool hasEnded = false;
@@ -24,6 +26,7 @@ public class CutsceneManager : MonoBehaviour
         videoRawImage.enabled = false;
         fadeImage.color = new Color(0, 0, 0, 0);
         videoPlayer.Stop();
+        endingPhotoImage.gameObject.SetActive(false);
     }
 
     void Update()
@@ -79,10 +82,20 @@ public class CutsceneManager : MonoBehaviour
         videoPlayer.frame = (long)videoPlayer.frameCount - 1;
         videoPlayer.Pause();
         videoRawImage.enabled = true;
+
+        // 사진 띄우기
+        if (endingPhotoImage != null)
+        {
+            endingPhotoImage.gameObject.SetActive(true);
+        }
     }
 
     IEnumerator FadeToWhiteAndExit()
     {
+        // 사진 숨기기
+        if (endingPhotoImage != null)
+            endingPhotoImage.gameObject.SetActive(false);
+
         yield return StartCoroutine(FadeColor(Color.clear, Color.white, 1f));
         yield return new WaitForSeconds(0.5f);
         SceneManager.LoadScene("Stage0");
