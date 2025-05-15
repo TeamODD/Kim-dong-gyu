@@ -1,22 +1,18 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class DoorTrigger : MonoBehaviour
 {
-    public GameObject pressFPlane; // Plane ¿ÀºêÁ§Æ® ¿¬°áÇÒ º¯¼ö
+    public GameObject pressFPlane;
+    public CutScene2 cutsceneManager;
+
     private bool isPlayerNearby = false;
-    private bool hasShownMessage = false;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             isPlayerNearby = true;
-
-            if (!hasShownMessage)
-            {
-                pressFPlane.SetActive(true); // PlaneÀ» º¸ÀÌ°Ô
-                hasShownMessage = true;
-            }
+            pressFPlane.SetActive(true);
         }
     }
 
@@ -25,9 +21,7 @@ public class DoorTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerNearby = false;
-            hasShownMessage = false;
-
-            pressFPlane.SetActive(false); // ¿µ¿ª ¹ş¾î³ª¸é ´Ù½Ã ¼û±â±â
+            pressFPlane.SetActive(false);
         }
     }
 
@@ -35,7 +29,9 @@ public class DoorTrigger : MonoBehaviour
     {
         if (isPlayerNearby && Input.GetKeyDown(KeyCode.F))
         {
-            Debug.Log("ÄÆ¾À ÁøÇà"); //ÀÌ ÄÚµå¸¦ ÄÆ¾À ÁøÇàÀ¸·Î ¹Ù²Ù¸é µÊ. 
+            Debug.Log("ì»·ì”¬ ì‹¤í–‰");
+            cutsceneManager.PlayCutscene(); // ì´ì œ ì •ìƒì ìœ¼ë¡œ í˜¸ì¶œë¨!
+            pressFPlane.SetActive(false); // UI ìˆ¨ê¸°ê¸°
         }
     }
 }
