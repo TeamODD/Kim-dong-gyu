@@ -3,23 +3,43 @@ using UnityEngine;
 
 public class ObjectActivationManage : MonoBehaviour
 {
+    public GameObject PuzzleBackground;
     public List<GameObject> ObjectActive;
-    public static int ActiveIndex = 0;
+    public static int currentPuzzleIndex = 0;
+    public static bool isPlayingPuzzle = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         for (int i = 0; i < ObjectActive.Count; i++)
         {
-            //ObjectActive[i].SetActive(false);
+            ObjectActive[i].SetActive(false);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (ObjectActivationManage.ActiveIndex != 0)
+        ObjectActivation();
+        ShowPuzzleBackground();
+    }
+
+    public void ShowPuzzleBackground()
+    {
+        if (isPlayingPuzzle)
         {
-            ObjectActive[ActiveIndex].SetActive(true);
+            PuzzleBackground.SetActive(true);
+        }
+        else
+        {
+            PuzzleBackground.SetActive(false);
+        }
+    }
+
+    public void ObjectActivation()
+    {
+        if (currentPuzzleIndex != 0)
+        {
+            ObjectActive[currentPuzzleIndex].SetActive(true);
         }
     }
 }

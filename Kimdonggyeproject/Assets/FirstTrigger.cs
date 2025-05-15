@@ -8,7 +8,7 @@ public class FirstTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (ObjectActivationManage.ActiveIndex == 0) 
+        if (ObjectActivationManage.currentPuzzleIndex == 0) 
         {
             if (other.CompareTag("Player"))
             {
@@ -25,7 +25,7 @@ public class FirstTrigger : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if(ObjectActivationManage.ActiveIndex == 0)
+        if(ObjectActivationManage.currentPuzzleIndex == 0)
         {
             if (other.CompareTag("Player"))
             {
@@ -44,11 +44,11 @@ public class FirstTrigger : MonoBehaviour
 
     private void Update()
     {
-        if (isPlayerNearby && Input.GetKeyDown(KeyCode.F) && ObjectActivationManage.ActiveIndex == 0)
+        if (isPlayerNearby && Input.GetKeyDown(KeyCode.F) && ObjectActivationManage.currentPuzzleIndex == 0)
         {
             
             // 배경 오버랩
-            ObjectActivationManage.ActiveIndex++; // 1번 퍼즐 관련 오브젝트 오버랩 : index++;
+            ObjectActivationManage.currentPuzzleIndex++; // 1번 퍼즐 관련 오브젝트 오버랩 : index++;
         }
     }
 }
