@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
 using UnityEngine.SceneManagement;
@@ -6,75 +6,79 @@ using System.Collections;
 
 public class CutsceneManager : MonoBehaviour
 {
-    public Image startImage;           // ½ÃÀÛ ÀÏ·¯½ºÆ®
-    public Image fadeImage;           // ÆäÀÌµå¿ë ÀÌ¹ÌÁö
-    public RawImage videoRawImage;    // ¿µ»ó Ãâ·Â¿ë
+    public Image startImage;
+    public Image fadeImage;
+    public RawImage videoRawImage;
     public VideoPlayer videoPlayer;
 
     private bool hasStarted = false;
     private bool hasEnded = false;
     private bool canExit = false;
 
+    private float exitCooldown = 0f; // ESC ì—°íƒ€ ë°©ì§€ìš©
+
     void Start()
     {
         startImage.gameObject.SetActive(true);
         fadeImage.gameObject.SetActive(true);
         videoRawImage.enabled = false;
-        fadeImage.color = new Color(0, 0, 0, 0); // Åõ¸í
+        fadeImage.color = new Color(0, 0, 0, 0);
         videoPlayer.Stop();
     }
 
     void Update()
     {
-        // ¾Æ¹« Å°·Î ½ÃÀÛ
         if (!hasStarted && Input.anyKeyDown)
         {
             hasStarted = true;
             StartCoroutine(PlayCutsceneWithFade());
         }
 
-        // ESC 1: ¿µ»ó Á¤Áö (½ºÅµ)
-        if (hasStarted && !hasEnded && Input.GetKeyDown(KeyCode.Escape))
+        // ESC ì²« ì…ë ¥ â†’ ì˜ìƒ ì •ì§€ (ë©ˆì¶˜ ì¥ë©´ ë³´ì—¬ì¤Œ)
+        if (hasStarted && !hasEnded && Input.GetKeyDown(KeyCode.Escape) && exitCooldown <= 0f)
         {
-            SkipCutscene();
+            hasEnded = true;
+            StopAndShowLastFrame();
+            canExit = true;
+            exitCooldown = 0.3f; // ì ì‹œ ESC ì…ë ¥ ë¬´ì‹œ
         }
 
-        // ¿µ»ó Á¤»ó Á¾·á: ESC ±â´Ù¸²
+        // ì˜ìƒ ì •ìƒ ì¢…ë£Œ ì‹œ
         if (hasStarted && !hasEnded && !videoPlayer.isPlaying && videoPlayer.time > 0.1f)
         {
             hasEnded = true;
-            HoldLastFrame(); // ÆäÀÌµå ¾øÀÌ Á¤Áö
+            StopAndShowLastFrame();
+            canExit = true;
         }
 
-        // ESC 2: ´ÙÀ½ ¾À
-        if (canExit && Input.GetKeyDown(KeyCode.Escape))
+        // ESC ë‘ ë²ˆì§¸ ì…ë ¥ â†’ ì”¬ ì „í™˜
+        if (canExit && Input.GetKeyDown(KeyCode.Escape) && exitCooldown <= 0f)
         {
             StartCoroutine(FadeToWhiteAndExit());
         }
-    }
 
-    void SkipCutscene()
-    {
-        videoPlayer.Pause(); // Á¤Áö(¸¶Áö¸· ÇÁ·¹ÀÓ À¯Áö)
-        hasEnded = true;
-        HoldLastFrame();
-    }
-
-    void HoldLastFrame()
-    {
-        // ¿µ»ó ¸¶Áö¸· Àå¸é ±×´ë·Î À¯Áö
-        videoRawImage.enabled = true;
-        canExit = true;
+        // ESC ì…ë ¥ ì¿¨ë‹¤ìš´ ê°ì†Œ
+        if (exitCooldown > 0f)
+        {
+            exitCooldown -= Time.deltaTime;
+        }
     }
 
     IEnumerator PlayCutsceneWithFade()
     {
         startImage.gameObject.SetActive(false);
-        yield return StartCoroutine(Fade(0, 1, 1f));  // °ËÁ¤ ÆäÀÌµå ÀÎ
+        yield return StartCoroutine(Fade(0, 1, 1f));
 
         videoRawImage.enabled = true;
         videoPlayer.Play();
-        yield return StartCoroutine(Fade(1, 0, 0.5f)); // °ËÁ¤ ÆäÀÌµå ¾Æ¿ô
+        yield return StartCoroutine(Fade(1, 0, 0.5f));
+    }
+
+    void StopAndShowLastFrame()
+    {
+        videoPlayer.frame = (long)videoPlayer.frameCount - 1;
+        videoPlayer.Pause();
+        videoRawImage.enabled = true;
     }
 
     IEnumerator FadeToWhiteAndExit()
@@ -103,14 +107,12 @@ public class CutsceneManager : MonoBehaviour
     IEnumerator FadeColor(Color from, Color to, float duration)
     {
         float elapsed = 0f;
-
         while (elapsed < duration)
         {
             fadeImage.color = Color.Lerp(from, to, elapsed / duration);
             elapsed += Time.deltaTime;
             yield return null;
         }
-
         fadeImage.color = to;
     }
 }
