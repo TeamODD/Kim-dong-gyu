@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Video;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
@@ -8,22 +7,25 @@ public class CutsceneManager : MonoBehaviour
 {
     public Image startImage;
     public Image fadeImage;
-    public RawImage videoRawImage;
-    public VideoPlayer videoPlayer;
+    public Image slideshowImage; // 슬라이드쇼에 사용할 UI 이미지
+    public Sprite[] cutsceneImages; // 보여줄 컷씬 이미지들
+
+    public float slideDuration = 2.5f; // 한 장당 보여주는 시간
 
     private bool hasStarted = false;
     private bool hasEnded = false;
     private bool canExit = false;
+    private float exitCooldown = 0f;
 
-    private float exitCooldown = 0f; // ESC 연타 방지용
+    private int currentSlide = 0;
+    private Coroutine slideshowCoroutine;
 
     void Start()
     {
         startImage.gameObject.SetActive(true);
         fadeImage.gameObject.SetActive(true);
-        videoRawImage.enabled = false;
+        slideshowImage.enabled = false;
         fadeImage.color = new Color(0, 0, 0, 0);
-        videoPlayer.Stop();
     }
 
     void Update()
@@ -31,54 +33,58 @@ public class CutsceneManager : MonoBehaviour
         if (!hasStarted && Input.anyKeyDown)
         {
             hasStarted = true;
-            StartCoroutine(PlayCutsceneWithFade());
+            StartCoroutine(StartSlideshow());
         }
 
-        // ESC 첫 입력 → 영상 정지 (멈춘 장면 보여줌)
         if (hasStarted && !hasEnded && Input.GetKeyDown(KeyCode.Escape) && exitCooldown <= 0f)
         {
             hasEnded = true;
-            StopAndShowLastFrame();
+            if (slideshowCoroutine != null)
+                StopCoroutine(slideshowCoroutine);
+            ShowLastSlide();
             canExit = true;
-            exitCooldown = 0.3f; // 잠시 ESC 입력 무시
+            exitCooldown = 0.3f;
         }
 
-        // 영상 정상 종료 시
-        if (hasStarted && !hasEnded && !videoPlayer.isPlaying && videoPlayer.time > 0.1f)
-        {
-            hasEnded = true;
-            StopAndShowLastFrame();
-            canExit = true;
-        }
-
-        // ESC 두 번째 입력 → 씬 전환
         if (canExit && Input.GetKeyDown(KeyCode.Escape) && exitCooldown <= 0f)
         {
             StartCoroutine(FadeToWhiteAndExit());
         }
 
-        // ESC 입력 쿨다운 감소
         if (exitCooldown > 0f)
         {
             exitCooldown -= Time.deltaTime;
         }
     }
 
-    IEnumerator PlayCutsceneWithFade()
+    IEnumerator StartSlideshow()
     {
         startImage.gameObject.SetActive(false);
         yield return StartCoroutine(Fade(0, 1, 1f));
 
-        videoRawImage.enabled = true;
-        videoPlayer.Play();
+        slideshowImage.enabled = true;
         yield return StartCoroutine(Fade(1, 0, 0.5f));
+
+        slideshowCoroutine = StartCoroutine(PlaySlides());
     }
 
-    void StopAndShowLastFrame()
+    IEnumerator PlaySlides()
     {
-        videoPlayer.frame = (long)videoPlayer.frameCount - 1;
-        videoPlayer.Pause();
-        videoRawImage.enabled = true;
+        while (currentSlide < cutsceneImages.Length)
+        {
+            slideshowImage.sprite = cutsceneImages[currentSlide];
+            currentSlide++;
+            yield return new WaitForSeconds(slideDuration);
+        }
+
+        // 다 끝나면 멈춤 상태로
+        hasEnded = true;
+        canExit = true;
+    }
+
+    void ShowLastSlide()
+    {
+        slideshowImage.sprite = cutsceneImages[cutsceneImages.Length - 1];
     }
 
     IEnumerator FadeToWhiteAndExit()
