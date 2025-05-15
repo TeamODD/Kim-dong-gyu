@@ -10,7 +10,7 @@ public class ObjectActivationManage : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        for (int i = 0; i < ObjectActive.Count; i++)
+        for (int i = 1; i < ObjectActive.Count; i++)
         {
             ObjectActive[i].SetActive(false);
         }
@@ -37,7 +37,7 @@ public class ObjectActivationManage : MonoBehaviour
 
     public void ObjectActivation()
     {
-        if (currentPuzzleIndex != 0)
+        if (currentPuzzleIndex > 0)
         {
             ObjectActive[currentPuzzleIndex].SetActive(true);
         }
