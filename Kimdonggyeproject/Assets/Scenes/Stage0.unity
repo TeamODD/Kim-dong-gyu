@@ -218,6 +218,7 @@ RectTransform:
   - {fileID: 409481909}
   - {fileID: 993758289}
   - {fileID: 457590861}
+  - {fileID: 291371446}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -402,11 +403,11 @@ RectTransform:
   m_LocalScale: {x: 0.00107, y: 0.00107, z: 0.00107}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 40273535}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 1.0173309, y: -0.8865636}
+  m_AnchoredPosition: {x: -1918.9827, y: -0.8865967}
   m_SizeDelta: {x: 228, y: 46}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &409481908
@@ -490,9 +491,25 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3097360502676711424, guid: fd42103399649fe46aa7b160c926e865, type: 3}
+      propertyPath: fadeImage
+      value: 
+      objectReference: {fileID: 993758290}
+    - target: {fileID: 3097360502676711424, guid: fd42103399649fe46aa7b160c926e865, type: 3}
+      propertyPath: videoPlayer
+      value: 
+      objectReference: {fileID: 2084439058}
+    - target: {fileID: 3097360502676711424, guid: fd42103399649fe46aa7b160c926e865, type: 3}
+      propertyPath: videoRawImage
+      value: 
+      objectReference: {fileID: 409481910}
+    - target: {fileID: 3097360502676711424, guid: fd42103399649fe46aa7b160c926e865, type: 3}
       propertyPath: cutsceneManager
       value: 
       objectReference: {fileID: 98206504}
+    - target: {fileID: 3097360502676711424, guid: fd42103399649fe46aa7b160c926e865, type: 3}
+      propertyPath: endingPhotoImage
+      value: 
+      objectReference: {fileID: 291371444}
     - target: {fileID: 5317235470422936242, guid: fd42103399649fe46aa7b160c926e865, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -550,7 +567,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2250898238487473415, guid: fd42103399649fe46aa7b160c926e865, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd42103399649fe46aa7b160c926e865, type: 3}
@@ -1469,7 +1487,6 @@ SceneRoots:
   - {fileID: 1291062787}
   - {fileID: 457097090}
   - {fileID: 40273535}
-  - {fileID: 291371446}
   - {fileID: 622475318}
   - {fileID: 250086716}
   - {fileID: 8697546283211515639}

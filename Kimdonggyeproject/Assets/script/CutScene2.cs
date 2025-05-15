@@ -16,7 +16,7 @@ public class CutScene2 : MonoBehaviour
     private bool canExit = false;
     private float exitCooldown = 0f;
 
-    public void PlayCutscene() // 외부에서 호출 가능하게 공개 메서드 추가!
+    public void PlayCutscene() 
     {
         if (!hasStarted)
         {
