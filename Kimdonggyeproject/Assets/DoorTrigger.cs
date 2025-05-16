@@ -6,33 +6,19 @@ using System.Collections;
 
 public class DoorTrigger : MonoBehaviour
 {
-    public GameObject pressFPlane;       // F키 누르라는 UI
-    public Image fadeImage;              // 페이드용 이미지 (검정색)
-    public RawImage videoRawImage;       // 영상 띄울 RawImage
-    public VideoPlayer videoPlayer;      // 영상 플레이어
-    public Image endingPhotoImage;       // 영상 끝나고 띄울 사진
-    public Image wasd;
+    public RawImage videoScreen;        // 영상 출력용 UI
+    public VideoPlayer videoPlayer;     // VideoPlayer
+    public Image fadeImage;             // 검은 화면용 UI Image (Canvas에 있어야 함)
+    public GameObject pressFPlane; // Plane 오브젝트 연결할 변수
+    public GameObject wasd;
+    public GameObject esc;
 
-    private bool hasShownMessage = false;
+    public string nextSceneName = "NextScene"; // 다음 씬 이름 입력
     private bool isPlayerNearby = false;
+    private bool hasPlayed = false;
+    private bool hasShownMessage = false;
+    private bool isCutscenePlaying = false;
 
-    void Start()
-    {
-        pressFPlane.SetActive(false);
-        fadeImage.gameObject.SetActive(true);
-        videoRawImage.enabled = false;
-        fadeImage.color = new Color(0, 0, 0, 0);
-        videoPlayer.Stop();
-        endingPhotoImage.gameObject.SetActive(false);
-    }
-
-    void Update()
-    {
-        if (isPlayerNearby && Input.GetKeyDown(KeyCode.F))
-        {
-            StartCoroutine(PlayCutsceneWithFade());
-        }
-    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -59,62 +45,96 @@ public class DoorTrigger : MonoBehaviour
         }
     }
 
-    IEnumerator PlayCutsceneWithFade()
+    private void Start()
     {
-        pressFPlane.SetActive(false);
+        esc.SetActive(false);
+    }
 
+    private void Update()
+    {
+        if (isPlayerNearby && !hasPlayed && Input.GetKeyDown(KeyCode.F))
+        {
+            Debug.Log("컷씬 진행");
+            StartCoroutine(PlayCutscene());
+            wasd.SetActive(false);
+        }
+
+        if (isCutscenePlaying && Input.GetKeyDown(KeyCode.Escape))
+        {
+            // 즉시 컷씬 스킵 → 다음 씬으로 이동
+            SkipToNextScene();
+        }
+    }
+
+    IEnumerator PlayCutscene()
+    {
+        hasPlayed = true;
+
+        // 페이드 인 (검은 화면 나타남)
         yield return StartCoroutine(Fade(0, 1, 1f));
 
-        videoRawImage.enabled = true;
+        // 영상 켜기
+        videoScreen.enabled = true;
         videoPlayer.Play();
 
-        yield return StartCoroutine(Fade(1, 0, 0.5f));
+        // 페이드 아웃 (영상 보여주기)
+        yield return StartCoroutine(Fade(1, 0, 1f));
+
+        // 영상 끝날 때까지 대기
+        while (videoPlayer.isPlaying)
+            yield return null;
+
+        // 영상 끝났으면 페이드 인 → 화면 가리기
+        if (Input.GetKeyDown(KeyCode.Escape)) 
+        {
+            esc.SetActive(true);
+            yield return StartCoroutine(Fade(0, 1, 1f));
+        }
+
+        // 영상/스크린 끄기
+        videoPlayer.Stop();
+        videoScreen.enabled = false;
+
+        // 페이드 아웃 → 게임 재개
+        yield return StartCoroutine(Fade(1, 0, 1f));
     }
 
-    void StopAndShowLastFrame()
-    {
-        videoPlayer.frame = (long)videoPlayer.frameCount - 1;
-        videoPlayer.Pause();
-        videoRawImage.enabled = true;
-
-        endingPhotoImage.gameObject.SetActive(true);
-    }
-
-    IEnumerator FadeToWhiteAndLoadNextScene()
-    {
-        endingPhotoImage.gameObject.SetActive(false);
-
-        yield return StartCoroutine(FadeColor(Color.clear, Color.white, 1f));
-        yield return new WaitForSeconds(0.5f);
-
-        SceneManager.LoadScene("Stage1");  // 넘어갈 씬 이름으로 바꾸세요
-    }
-
-    IEnumerator Fade(float from, float to, float duration)
+    IEnumerator Fade(float fromAlpha, float toAlpha, float duration)
     {
         float elapsed = 0f;
         Color color = fadeImage.color;
 
         while (elapsed < duration)
         {
-            float alpha = Mathf.Lerp(from, to, elapsed / duration);
+            float alpha = Mathf.Lerp(fromAlpha, toAlpha, elapsed / duration);
             fadeImage.color = new Color(color.r, color.g, color.b, alpha);
             elapsed += Time.deltaTime;
             yield return null;
         }
 
-        fadeImage.color = new Color(color.r, color.g, color.b, to);
+        fadeImage.color = new Color(color.r, color.g, color.b, toAlpha);
     }
 
-    IEnumerator FadeColor(Color from, Color to, float duration)
+    void SkipToNextScene()
     {
-        float elapsed = 0f;
-        while (elapsed < duration)
+        if (videoPlayer.isPlaying)
         {
-            fadeImage.color = Color.Lerp(from, to, elapsed / duration);
-            elapsed += Time.deltaTime;
-            yield return null;
+            videoPlayer.Stop();
         }
-        fadeImage.color = to;
+
+        StartCoroutine(SkipSceneCoroutine());
+    }
+
+    IEnumerator SkipSceneCoroutine()
+    {
+        // 영상 꺼지고 검정 화면 페이드 인 후 씬 이동
+        yield return StartCoroutine(Fade(0, 1, 1f));
+        LoadNextScene();
+    }
+
+    void LoadNextScene()
+    {
+        isCutscenePlaying = false;
+        SceneManager.LoadScene(nextSceneName);
     }
 }
