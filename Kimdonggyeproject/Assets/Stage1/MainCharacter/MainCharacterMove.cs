@@ -141,7 +141,7 @@ public class PlayerMovementRB : MonoBehaviour
         movement = new Vector3(moveX, 0f, moveZ).normalized;
         // 기존 y축 속도 보존 (중력 영향)
         Vector3 currentVelocity = rb.linearVelocity;
-        rb.linearVelocity = new Vector3(movement.x * moveSpeed, currentVelocity.y, movement.z * moveSpeed) * Time.fixedDeltaTime;
+        rb.linearVelocity = new Vector3(movement.x * moveSpeed, currentVelocity.y, movement.z * moveSpeed);
     }
     void Dead() //사망 판정
     {

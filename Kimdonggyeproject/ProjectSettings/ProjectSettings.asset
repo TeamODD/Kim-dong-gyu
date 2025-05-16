@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 28
-  productGUID: c49bcaabc2d563242bbd8c4183191a6e
+  productGUID: e51cc53bfac8fad43b364de9a2fd60bb
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
-  productName: Kimdonggyeproject
+  productName: DreamCatcher
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -527,9 +527,6 @@ PlayerSettings:
   - m_BuildTarget: AndroidPlayer
     m_APIs: 150000000b000000
     m_Automatic: 0
-  - m_BuildTarget: WindowsStandaloneSupport
-    m_APIs: 0200000012000000
-    m_Automatic: 0
   m_BuildTargetVRSettings: []
   m_DefaultShaderChunkSizeInMB: 16
   m_DefaultShaderChunkCount: 0
@@ -841,14 +838,14 @@ PlayerSettings:
   editorAssembliesCompatibilityLevel: 1
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: Kimdonggyeproject
+  metroPackageName: DreamCatcher
   metroPackageVersion: 
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
   metroCertificateIssuer: 
   metroCertificateNotAfter: 0000000000000000
-  metroApplicationDescription: Kimdonggyeproject
+  metroApplicationDescription: DreamCatcher
   wsaImages: {}
   metroTileShortName: 
   metroTileShowName: 0
@@ -919,11 +916,11 @@ PlayerSettings:
   captureStartupLogs: {}
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: ab2c57d2-f6c3-417c-a85e-fe202b18c48e
+  cloudProjectId: 80ac9b7f-ba12-4eb4-9466-cd0d1a4bd858
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Kimdonggyeproject
-  organizationId: brad05310531
+  projectName: DreamCatcher 2025-05-04_22-40-03
+  organizationId: heojunmin07
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}

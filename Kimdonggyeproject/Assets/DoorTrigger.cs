@@ -1,38 +1,10 @@
-ï»¿using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Video;
-using UnityEngine.SceneManagement;
-using System.Collections;
+using UnityEngine;
 
 public class DoorTrigger : MonoBehaviour
 {
-    public GameObject pressFPlane;       // Fí‚¤ ëˆ„ë¥´ë¼ëŠ” UI
-    public Image fadeImage;              // í˜ì´ë“œìš© ì´ë¯¸ì§€ (ê²€ì •ìƒ‰)
-    public RawImage videoRawImage;       // ì˜ìƒ ë„ìš¸ RawImage
-    public VideoPlayer videoPlayer;      // ì˜ìƒ í”Œë ˆì´ì–´
-    public Image endingPhotoImage;       // ì˜ìƒ ëë‚˜ê³  ë„ìš¸ ì‚¬ì§„
-    public Image wasd;
-
-    private bool hasShownMessage = false;
+    public GameObject pressFPlane; // Plane ¿ÀºêÁ§Æ® ¿¬°áÇÒ º¯¼ö
     private bool isPlayerNearby = false;
-
-    void Start()
-    {
-        pressFPlane.SetActive(false);
-        fadeImage.gameObject.SetActive(true);
-        videoRawImage.enabled = false;
-        fadeImage.color = new Color(0, 0, 0, 0);
-        videoPlayer.Stop();
-        endingPhotoImage.gameObject.SetActive(false);
-    }
-
-    void Update()
-    {
-        if (isPlayerNearby && Input.GetKeyDown(KeyCode.F))
-        {
-            StartCoroutine(PlayCutsceneWithFade());
-        }
-    }
+    private bool hasShownMessage = false;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -42,7 +14,7 @@ public class DoorTrigger : MonoBehaviour
 
             if (!hasShownMessage)
             {
-                pressFPlane.SetActive(true); // Planeì„ ë³´ì´ê²Œ
+                pressFPlane.SetActive(true); // PlaneÀ» º¸ÀÌ°Ô
                 hasShownMessage = true;
             }
         }
@@ -55,66 +27,15 @@ public class DoorTrigger : MonoBehaviour
             isPlayerNearby = false;
             hasShownMessage = false;
 
-            pressFPlane.SetActive(false); // ì˜ì—­ ë²—ì–´ë‚˜ë©´ ë‹¤ì‹œ ìˆ¨ê¸°ê¸°
+            pressFPlane.SetActive(false); // ¿µ¿ª ¹ş¾î³ª¸é ´Ù½Ã ¼û±â±â
         }
     }
 
-    IEnumerator PlayCutsceneWithFade()
+    private void Update()
     {
-        pressFPlane.SetActive(false);
-
-        yield return StartCoroutine(Fade(0, 1, 1f));
-
-        videoRawImage.enabled = true;
-        videoPlayer.Play();
-
-        yield return StartCoroutine(Fade(1, 0, 0.5f));
-    }
-
-    void StopAndShowLastFrame()
-    {
-        videoPlayer.frame = (long)videoPlayer.frameCount - 1;
-        videoPlayer.Pause();
-        videoRawImage.enabled = true;
-
-        endingPhotoImage.gameObject.SetActive(true);
-    }
-
-    IEnumerator FadeToWhiteAndLoadNextScene()
-    {
-        endingPhotoImage.gameObject.SetActive(false);
-
-        yield return StartCoroutine(FadeColor(Color.clear, Color.white, 1f));
-        yield return new WaitForSeconds(0.5f);
-
-        SceneManager.LoadScene("Stage1");  // ë„˜ì–´ê°ˆ ì”¬ ì´ë¦„ìœ¼ë¡œ ë°”ê¾¸ì„¸ìš”
-    }
-
-    IEnumerator Fade(float from, float to, float duration)
-    {
-        float elapsed = 0f;
-        Color color = fadeImage.color;
-
-        while (elapsed < duration)
+        if (isPlayerNearby && Input.GetKeyDown(KeyCode.F))
         {
-            float alpha = Mathf.Lerp(from, to, elapsed / duration);
-            fadeImage.color = new Color(color.r, color.g, color.b, alpha);
-            elapsed += Time.deltaTime;
-            yield return null;
+            Debug.Log("ÄÆ¾À ÁøÇà"); //ÀÌ ÄÚµå¸¦ ÄÆ¾À ÁøÇàÀ¸·Î ¹Ù²Ù¸é µÊ. 
         }
-
-        fadeImage.color = new Color(color.r, color.g, color.b, to);
-    }
-
-    IEnumerator FadeColor(Color from, Color to, float duration)
-    {
-        float elapsed = 0f;
-        while (elapsed < duration)
-        {
-            fadeImage.color = Color.Lerp(from, to, elapsed / duration);
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-        fadeImage.color = to;
     }
 }
