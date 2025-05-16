@@ -6,7 +6,7 @@ public class ObjectActivationManage : MonoBehaviour
     public GameObject PuzzleBackground;
     public List<GameObject> ObjectActive;
     public static int currentPuzzleIndex = 0;
-    public static bool isPlayingPuzzle = false;
+    public static bool isPlayingPuzzle;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -25,7 +25,7 @@ public class ObjectActivationManage : MonoBehaviour
 
     public void ShowPuzzleBackground()
     {
-        if (isPlayingPuzzle)
+        if (isPlayingPuzzle == true)
         {
             PuzzleBackground.SetActive(true);
         }

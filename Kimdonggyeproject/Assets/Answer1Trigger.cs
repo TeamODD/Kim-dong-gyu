@@ -3,6 +3,7 @@ using UnityEngine;
 public class Answer1Trigger : MonoBehaviour
 {
     public GameObject pressFPlane; // Plane 오브젝트 연결할 변수
+    public GameObject Puzzle1;
     private bool isPlayerNearby = false;
     private bool hasShownMessage = false;
 
@@ -35,9 +36,11 @@ public class Answer1Trigger : MonoBehaviour
     {
         if (isPlayerNearby && Input.GetKeyDown(KeyCode.F) && ObjectActivationManage.currentPuzzleIndex == 1)
         {
-
-            Debug.Log("퍼즐1 진행"); //이 코드를 컷씬 진행으로 바꾸면 됨.
-            
+            Puzzle1.SetActive(true);
+            Debug.Log("퍼즐1 진행"); // 만약 퍼즐을 풀었다면 currentActivateIndex++
+            //클리어 조건 if()
+            //if()
+            ObjectActivationManage.currentPuzzleIndex++;
         }
     }
 }
