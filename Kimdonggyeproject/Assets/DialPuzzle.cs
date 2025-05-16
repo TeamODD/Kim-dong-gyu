@@ -5,6 +5,8 @@ public class GameManager : MonoBehaviour
 {
     public List<GameObject> images;
     public GameObject clearText;
+    public GameObject Dial;
+    
 
     private readonly float[] goals = { 144f, 300f, 108f, 320f, 225f }; //144, -60, 108, -40, -135
 
@@ -45,10 +47,18 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < images.Count; i++)
         {
             float zAngle = images[i].transform.rotation.eulerAngles.z;
-            if (Mathf.Abs(Mathf.DeltaAngle(zAngle, goals[i])) < 0.3f)
+            if (Mathf.Abs(Mathf.DeltaAngle(zAngle, goals[i])) < 0.3f && correctCount < 6)
             {
                 correctCount++;
             }
+        }
+        if (correctCount == 5)
+        {
+            ObjectActivationManage.currentPuzzleIndex++;
+            ObjectActivationManage.isPlayingPuzzle = false;
+            Dial.SetActive(false);
+            Debug.Log("현재 인덱스는"+ ObjectActivationManage.currentPuzzleIndex);
+            correctCount = 6;
         }
         //correctCount == images.Count라면
         //3초간 텍스트 띄우고 슬립

@@ -52,6 +52,7 @@ public class FirstTrigger : MonoBehaviour
             StageEmptyPlane.SetActive(false);
             Debug.Log("현재 인덱스는 "+ ObjectActivationManage.currentPuzzleIndex);
             ObjectActivationManage.currentPuzzleIndex++; // 1번 퍼즐 관련 오브젝트 오버랩 : index++;
+            
         }
     }
 }

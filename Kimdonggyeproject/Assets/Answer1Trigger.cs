@@ -33,9 +33,11 @@ public class Answer1Trigger : MonoBehaviour
 
     private void Update()
     {
-        if (isPlayerNearby && Input.GetKeyDown(KeyCode.F))
+        if (isPlayerNearby && Input.GetKeyDown(KeyCode.F) && ObjectActivationManage.currentPuzzleIndex == 1)
         {
-            Debug.Log("컷씬 진행"); //이 코드를 컷씬 진행으로 바꾸면 됨. 
+
+            Debug.Log("퍼즐1 진행"); //이 코드를 컷씬 진행으로 바꾸면 됨.
+            
         }
     }
 }
