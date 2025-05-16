@@ -1648,7 +1648,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62124d8118bb9d14ab09691be218c033, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  videoScreen: {fileID: 0}
+  videoPlayer: {fileID: 0}
+  fadeImage: {fileID: 0}
   pressFPlane: {fileID: 412088374}
+  wasd: {fileID: 0}
+  esc: {fileID: 0}
+  nextSceneName: NextScene
 --- !u!4 &530623811 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1565272143861756395, guid: d585b92ad44f34c4b851cf3c18bb9cf0, type: 3}
@@ -1804,38 +1810,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RenderShadows: 1
-  m_RequiresDepthTextureOption: 2
-  m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 0
-  m_Cameras: []
-  m_RendererIndex: -1
-  m_VolumeLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  m_VolumeTrigger: {fileID: 0}
-  m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
-  m_Antialiasing: 0
-  m_AntialiasingQuality: 2
-  m_StopNaN: 0
-  m_Dithering: 0
-  m_ClearDepth: 1
-  m_AllowXRRendering: 1
-  m_AllowHDROutput: 1
-  m_UseScreenCoordOverride: 0
-  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
-  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
-  m_RequiresDepthTexture: 0
-  m_RequiresColorTexture: 0
-  m_Version: 2
-  m_TaaSettings:
-    m_Quality: 3
-    m_FrameInfluence: 0.1
-    m_JitterScale: 1
-    m_MipBias: 0
-    m_VarianceClampScale: 0.9
-    m_ContrastAdaptiveSharpening: 0
 --- !u!114 &776375216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4647,17 +4621,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Version: 3
-  m_UsePipelineSettings: 1
-  m_AdditionalLightsShadowResolutionTier: 2
-  m_LightLayerMask: 1
-  m_RenderingLayers: 1
-  m_CustomShadowLayers: 0
-  m_ShadowLayerMask: 1
-  m_ShadowRenderingLayers: 1
-  m_LightCookieSize: {x: 1, y: 1}
-  m_LightCookieOffset: {x: 0, y: 0}
-  m_SoftShadowQuality: 0
 --- !u!1 &1695818768 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2250898238487473415, guid: fd42103399649fe46aa7b160c926e865, type: 3}
