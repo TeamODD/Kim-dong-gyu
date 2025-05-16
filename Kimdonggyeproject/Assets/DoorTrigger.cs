@@ -11,6 +11,7 @@ public class DoorTrigger : MonoBehaviour
     public RawImage videoRawImage;       // 영상 띄울 RawImage
     public VideoPlayer videoPlayer;      // 영상 플레이어
     public Image endingPhotoImage;       // 영상 끝나고 띄울 사진
+    public Image wasd;
 
     private bool isPlayerNearby = false;
     private bool hasStarted = false;
