@@ -33,9 +33,9 @@ public class ComputerTrigger : MonoBehaviour
 
     private void Update()
     {
-        if (isPlayerNearby && Input.GetKeyDown(KeyCode.F))
+        if (isPlayerNearby && Input.GetKeyDown(KeyCode.F) && ObjectActivationManage.currentPuzzleIndex == 4)
         {
-            Debug.Log("ÄÆ¾À ÁøÇà"); //ÀÌ ÄÚµå¸¦ ÄÆ¾À ÁøÇàÀ¸·Î ¹Ù²Ù¸é µÊ. 
+            Debug.Log("ÆÛÁñ4 ÁøÇà"); 
         }
     }
 }
