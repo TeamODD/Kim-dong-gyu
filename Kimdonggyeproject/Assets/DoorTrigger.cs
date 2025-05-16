@@ -13,11 +13,8 @@ public class DoorTrigger : MonoBehaviour
     public Image endingPhotoImage;       // 영상 끝나고 띄울 사진
     public Image wasd;
 
+    private bool hasShownMessage = false;
     private bool isPlayerNearby = false;
-    private bool hasStarted = false;
-    private bool hasEnded = false;
-    private bool canExit = false;
-    private float exitCooldown = 0f;
 
     void Start()
     {
@@ -31,34 +28,9 @@ public class DoorTrigger : MonoBehaviour
 
     void Update()
     {
-        if (isPlayerNearby && !hasStarted && Input.GetKeyDown(KeyCode.F))
+        if (isPlayerNearby && Input.GetKeyDown(KeyCode.F))
         {
             StartCoroutine(PlayCutsceneWithFade());
-        }
-
-        if (hasStarted && !hasEnded && Input.GetKeyDown(KeyCode.Escape) && exitCooldown <= 0f)
-        {
-            hasEnded = true;
-            StopAndShowLastFrame();
-            canExit = true;
-            exitCooldown = 0.3f;
-        }
-
-        if (hasStarted && !hasEnded && !videoPlayer.isPlaying && videoPlayer.time > 0.1f)
-        {
-            hasEnded = true;
-            StopAndShowLastFrame();
-            canExit = true;
-        }
-
-        if (canExit && Input.GetKeyDown(KeyCode.Escape) && exitCooldown <= 0f)
-        {
-            StartCoroutine(FadeToWhiteAndLoadNextScene());
-        }
-
-        if (exitCooldown > 0f)
-        {
-            exitCooldown -= Time.deltaTime;
         }
     }
 
@@ -67,7 +39,12 @@ public class DoorTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerNearby = true;
-            pressFPlane.SetActive(true);
+
+            if (!hasShownMessage)
+            {
+                pressFPlane.SetActive(true); // Plane을 보이게
+                hasShownMessage = true;
+            }
         }
     }
 
@@ -76,13 +53,14 @@ public class DoorTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerNearby = false;
-            pressFPlane.SetActive(false);
+            hasShownMessage = false;
+
+            pressFPlane.SetActive(false); // 영역 벗어나면 다시 숨기기
         }
     }
 
     IEnumerator PlayCutsceneWithFade()
     {
-        hasStarted = true;
         pressFPlane.SetActive(false);
 
         yield return StartCoroutine(Fade(0, 1, 1f));
