@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using System.Threading;
 using UnityEngine.InputSystem;
+using Unity.VisualScripting;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovementRB : MonoBehaviour
@@ -18,6 +19,7 @@ public class PlayerMovementRB : MonoBehaviour
     public bool canMove = true;
     public int newMove = 0;
     public Vector3 savepoint;
+    public GameObject hand;
     VariableJump jumpsc;
     int dir = 0;
     private bool checking = true;
@@ -36,24 +38,26 @@ public class PlayerMovementRB : MonoBehaviour
     {
         if (collision.gameObject.layer == 8 && checking == true)
         { //wrong tile
-            if(collision.gameObject.CompareTag("Alpha")){
+            if (collision.gameObject.CompareTag("Alpha"))
+            {
                 return;
             }
             canMove = false;
-            rb.useGravity = false;
             checking = false;
+            rb.AddForce(Vector3.up * 12, ForceMode.Impulse);
             animator.SetInteger("Event", 1);
+            //Thread.Sleep(1000);
             GetComponent<Collider>().enabled = false;
-            Invoke("Dead", 3f);
+            Invoke("Dead", 1.6f);
         }
         else if (collision.gameObject.layer == 9 && checking == true) //background layer
         {
             canMove = false;
+            checking = false;
             Debug.Log("추락 판정");
             rb.AddForce(Vector3.up * 22, ForceMode.Impulse);
             animator.SetInteger("Event", 1);
             GetComponent<Collider>().enabled = false;
-            checking = false;
             Invoke("Dead", 2.5f);
         }
         else if (collision.gameObject.layer == 10 && savepoint.x != collision.gameObject.transform.position.x && savepoint.z != collision.gameObject.transform.position.z) //savepoint layer
@@ -62,41 +66,54 @@ public class PlayerMovementRB : MonoBehaviour
             savepoint = collision.gameObject.transform.position;
             savepoint.y = 3;
         }
+        else if (collision.gameObject.CompareTag("END") && checking == true) //종료 조건
+        {
+            checking = false;
+            canMove = false;
+            Debug.Log("종료 판정");
+            GetComponent<Collider>().enabled = false;
+            rb.useGravity = false;
+            Invoke("END", 2.5f);
+        }
     }
-    void FixedUpdate()
+    void Update()
     {
         float moveX = 0f;
         float moveZ = 0f;
         if (canMove)
         {
-            if (Input.GetKey(KeyCode.W)){
+            if (Input.GetKey(KeyCode.W))
+            {
                 moveZ = 1f;
                 dir = 0;
-                if(newMove == 0)
+                if (newMove == 0)
                     newMove = 1;
                 else
                     newMove = 2;
             }
-            if (Input.GetKey(KeyCode.S)){
+            if (Input.GetKey(KeyCode.S))
+            {
                 moveZ = -1f;
                 dir = 1;
-                if(newMove == 0)
+                if (newMove == 0)
                     newMove = 1;
                 else
                     newMove = 2;
             }
-            if (Input.GetKey(KeyCode.A)){
+            if (Input.GetKey(KeyCode.A))
+            {
                 moveX = -1f;
                 dir = 2;
-                if(newMove == 0)
+                if (newMove == 0)
                     newMove = 1;
                 else
                     newMove = 2;
             }
-            if (Input.GetKey(KeyCode.D)){
+            if (Input.GetKey(KeyCode.D))
+            {
                 moveX = 1f;
                 dir = 3;
-                if(newMove == 0)
+                if (newMove == 0)
                     newMove = 1;
                 else
                     newMove = 2;
@@ -145,37 +162,34 @@ public class PlayerMovementRB : MonoBehaviour
     }
     void Dead() //사망 판정
     {
-        checking = true;
         Respawn();
-    }
-    void ResetAllTriggers()
-    {
-        animator.ResetTrigger("Walk-L");
-        animator.ResetTrigger("Walk-R");
-        animator.ResetTrigger("Jump-L");
-        animator.ResetTrigger("Jump-R");
-        animator.ResetTrigger("IDLE");
     }
     void Respawn()
     {
         VariableJump Jump = GetComponent<VariableJump>();
         Jump.isJumping = false;
-        transform.position = savepoint;
+        
         animator.SetInteger("Event", 0);
-        canMove = true;
+        
         GetComponent<Collider>().enabled = true;
         rb.useGravity = true;
         CallRestoreOnAllPlatforms();
-
-        return ;
+        transform.position = savepoint;
+        checking = true;
+        canMove = true;
+        return;
     }
     void CallRestoreOnAllPlatforms()
     {
-        DisappearingPlatform[] platforms = GameObject.FindObjectsOfType<DisappearingPlatform>(true); // Platform은 RestorePlatform을 가진 클래스
+        DisappearingPlatform[] platforms = Resources.FindObjectsOfTypeAll<DisappearingPlatform>();
         foreach (DisappearingPlatform p in platforms)
         {
             p.RestorePlatform();
         }
+    }
+    void END()
+    {
+        //종료 후 실행시킬 코드드
     }
 }
 

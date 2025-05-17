@@ -1,9 +1,9 @@
-using UnityEditor.Rendering;
+//using UnityEditor.Rendering;
 using UnityEngine;
 
 public class ClockTrigger : MonoBehaviour
 {
-    public GameObject pressFPlaneClock; // PlaneClcock ¿ÀºêÁ§Æ® ¿¬°áÇÒ º¯¼ö
+    public GameObject pressFPlaneClock; // PlaneClcock ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private bool isPlayerNearby = false;
     private bool hasShownMessage = false;
     public GameObject puzzle;
@@ -13,7 +13,7 @@ public class ClockTrigger : MonoBehaviour
     {
         puzzle4 = puzzle.GetComponent<Puzzle4>();
         if (puzzle4 == null)
-            Debug.LogError("Puzzle4 ÄÄÆ÷³ÍÆ®°¡ ÇÒ´çµÇÁö ¾Ê¾Ò½À´Ï´Ù!");
+            Debug.LogError("Puzzle4 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ò´ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò½ï¿½ï¿½Ï´ï¿½!");
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -23,7 +23,7 @@ public class ClockTrigger : MonoBehaviour
 
             if (!hasShownMessage)
             {
-                pressFPlaneClock.SetActive(true); // PlaneÀ» º¸ÀÌ°Ô
+                pressFPlaneClock.SetActive(true); // Planeï¿½ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½
                 hasShownMessage = true;
             }
         }
@@ -36,7 +36,7 @@ public class ClockTrigger : MonoBehaviour
             isPlayerNearby = false;
             hasShownMessage = false;
 
-            pressFPlaneClock.SetActive(false); // ¿µ¿ª ¹þ¾î³ª¸é ´Ù½Ã ¼û±â±â
+            pressFPlaneClock.SetActive(false); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³ªï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
         }
     }
 
@@ -44,8 +44,8 @@ public class ClockTrigger : MonoBehaviour
     {
         if (isPlayerNearby && Input.GetKeyDown(KeyCode.F))
         {
-            Debug.Log("ÆÛÁñ ÁøÇà");
-            // Puzzle4 ÀÎ½ºÅÏ½º¸¦ ÅëÇØ º¯¼ö¿¡ Á¢±Ù
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+            // Puzzle4 ï¿½Î½ï¿½ï¿½Ï½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
             puzzle4.isPlayingPuzzle4 = true;
 

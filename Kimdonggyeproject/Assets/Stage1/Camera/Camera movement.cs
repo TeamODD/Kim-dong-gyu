@@ -17,7 +17,7 @@ public class CameraFollow : MonoBehaviour
         playersc = target_object.GetComponent<PlayerMovementRB>();
     }
 
-    void LateUpdate()
+    void FixedUpdate()
     {
         if (target == null) return;
         // if(isStarted == -1){
@@ -30,7 +30,7 @@ public class CameraFollow : MonoBehaviour
 
         Vector3 desiredPosition = new Vector3(target.position.x, cameraY, target.position.z - 14);
         if(cam.orthographicSize > 4 && isStarted == 1){
-            cam.orthographicSize -= 6.0f / smoothChange;
+            cam.orthographicSize -= 14.0f / smoothChange;
             smoothSpeed += 4f / smoothChange / 1000f;
         }
         else if(isStarted == 1){

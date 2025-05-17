@@ -19,16 +19,30 @@ public class DisappearingPlatform : MonoBehaviour
     private Vector3 originalPosition;
     public bool isShaking = false;
     public Renderer MR_basic;
+    public float basic_a = 0.7f;
     public Renderer MR_changed;
     private Vector3 origin_pos;
     void Start()
     {
         rend = GetComponent<Renderer>();
         col = GetComponent<Collider>();
+        if (gameObject.CompareTag("Alpha"))
+        {
+            SetAlpha(basic_a);
+            col.enabled = false;
+            SpriteChanger gch = gameObject.GetComponent<SpriteChanger>();
+        }
         originalColor = rend.material.color;
         origin_pos = transform.position;
     }
+    public void SetAlpha(float newAlpha)
+    {
+        Material mat = GetComponent<Renderer>().material;
 
+        Color color = mat.color;
+        color.a = Mathf.Clamp01(newAlpha);
+        mat.color = color;
+    }
     void OnCollisionEnter(Collision collision)
     {
         if (!isTriggered && collision.gameObject.CompareTag(playerTag) && gameObject.layer == 8)
@@ -42,10 +56,10 @@ public class DisappearingPlatform : MonoBehaviour
     {
         if (isTriggered || isShaking)
         {
-            Debug.Log("오답임니다.");
+            //Debug.Log("오답임니다.");
             if (isShaking)
             {
-                elapsedTime += Time.deltaTime;
+                elapsedTime += 0.1f;
 
                 float xOffset = Mathf.Sin(elapsedTime * shakeFrequency * Mathf.PI * 2) * shakeAmplitude;
                 transform.position = originalPosition + new Vector3(xOffset, 0, 0);
@@ -61,7 +75,7 @@ public class DisappearingPlatform : MonoBehaviour
                 Vector3 pos = transform.position;
                 pos.y -= 0.01f;
                 transform.position = pos;
-                fadeTimer += Time.deltaTime;
+                fadeTimer += 0.1f;
                 float alpha = Mathf.Lerp(originalColor.a, 0f, fadeTimer / fadeDuration);
                 Color newColor = originalColor;
                 newColor.a = alpha;
@@ -70,7 +84,6 @@ public class DisappearingPlatform : MonoBehaviour
                 {
                     gameObject.SetActive(false);
                     isTriggered = false;
-                    isShaking = false;
                 }
             }
         }
@@ -83,8 +96,12 @@ public class DisappearingPlatform : MonoBehaviour
         rend.material.color = originalColor;
         isTriggered = false;
         isShaking = false;
-        if(!gameObject.CompareTag("Alpha"))
+        if (!gameObject.CompareTag("Alpha"))
             col.enabled = true;
+        else
+        {
+            SetAlpha(basic_a);
+        }
         fadeTimer = 0f; // 필요 시 타이머도 초기화
         elapsedTime = 0f;
         transform.position = origin_pos;

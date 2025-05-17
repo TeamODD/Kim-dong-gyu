@@ -1,8 +1,9 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DoorTrigger : MonoBehaviour
 {
-    public GameObject pressFPlane; // Plane ¿ÀºêÁ§Æ® ¿¬°áÇÒ º¯¼ö
+    public GameObject pressFPlane; // Plane ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private bool isPlayerNearby = false;
     private bool hasShownMessage = false;
 
@@ -14,7 +15,7 @@ public class DoorTrigger : MonoBehaviour
 
             if (!hasShownMessage)
             {
-                pressFPlane.SetActive(true); // PlaneÀ» º¸ÀÌ°Ô
+                pressFPlane.SetActive(true); // Planeï¿½ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½
                 hasShownMessage = true;
             }
         }
@@ -27,7 +28,7 @@ public class DoorTrigger : MonoBehaviour
             isPlayerNearby = false;
             hasShownMessage = false;
 
-            pressFPlane.SetActive(false); // ¿µ¿ª ¹þ¾î³ª¸é ´Ù½Ã ¼û±â±â
+            pressFPlane.SetActive(false); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³ªï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
         }
     }
 
@@ -35,7 +36,8 @@ public class DoorTrigger : MonoBehaviour
     {
         if (isPlayerNearby && Input.GetKeyDown(KeyCode.F))
         {
-            Debug.Log("ÄÆ¾À ÁøÇà"); //ÀÌ ÄÚµå¸¦ ÄÆ¾À ÁøÇàÀ¸·Î ¹Ù²Ù¸é µÊ. 
+            Debug.Log("ï¿½Æ¾ï¿½ ï¿½ï¿½ï¿½ï¿½"); //ï¿½ï¿½ ï¿½Úµå¸¦ ï¿½Æ¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²Ù¸ï¿½ ï¿½ï¿½. 
+            SceneManager.LoadScene("Stage1-1");
         }
     }
 }
