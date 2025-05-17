@@ -24,6 +24,8 @@ public class PlayerMovementRB : MonoBehaviour
     VariableJump jumpsc;
     int dir = 0;
     private bool checking = true;
+    public GameObject StartJumpAudio;
+    
     void Start()
     {
         savepoint = transform.position;
@@ -150,9 +152,15 @@ public class PlayerMovementRB : MonoBehaviour
         // }
 
         if (!jumpsc.isGrounded)
+        {
             animator.SetBool("Jumping", true);
+            StartJumpAudio.SetActive(true);
+        }
         else
+        {
             animator.SetBool("Jumping", false);
+            StartJumpAudio.SetActive(false);
+        }
 
         animator.SetInteger("Dir", dir);
         movement = new Vector3(moveX, 0f, moveZ).normalized;
