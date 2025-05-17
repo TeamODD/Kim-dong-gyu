@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
 
+
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovementRB : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class PlayerMovementRB : MonoBehaviour
     public Vector3 savepoint;
     public GameObject hand;
     VariableJump jumpsc;
-    int dir = 0;
+    int dir = 1;
     private bool checking = true;
     public GameObject StartJumpAudio;
     
@@ -47,19 +48,27 @@ public class PlayerMovementRB : MonoBehaviour
             }
             canMove = false;
             checking = false;
+            
+            GetComponent<Collider>().enabled = false;
             rb.AddForce(Vector3.up * 12, ForceMode.Impulse);
             animator.SetInteger("Event", 1);
-            GetComponent<Collider>().enabled = false;
-            Invoke("Dead", 1.6f);
+            Invoke("Fadein", 0.8f);
+            Invoke("Fadeout", 1.8f);
+            
+            Invoke("Dead", 1.8f);
         }
         else if (collision.gameObject.layer == 9 && checking == true) //background layer
         {
             canMove = false;
             checking = false;
             Debug.Log("추락 판정");
+            
+            GetComponent<Collider>().enabled = false;
             rb.AddForce(Vector3.up * 22, ForceMode.Impulse);
             animator.SetInteger("Event", 1);
-            GetComponent<Collider>().enabled = false;
+            Invoke("Fadein", 1.5f);
+            Invoke("Fadeout", 2.5f);
+            
             Invoke("Dead", 2.5f);
         }
         else if (collision.gameObject.layer == 10 && savepoint.x != collision.gameObject.transform.position.x && savepoint.z != collision.gameObject.transform.position.z) //savepoint layer
@@ -78,6 +87,19 @@ public class PlayerMovementRB : MonoBehaviour
             Invoke("END", 2.5f);
         }
     }
+    void Fadein()
+    {
+        Fading fd = gameObject.GetComponent<Fading>();
+        //StartCoroutine(fd.Fade(0f, 1f, 0.3f));
+        StartCoroutine(fd.Fade(0f, 1f, 1f));
+    }
+    void Fadeout()
+    {
+        Fading fd = gameObject.GetComponent<Fading>();
+        //StartCoroutine(fd.Fade(0f, 1f, 0.3f));
+        StartCoroutine(fd.Fade(1f, 0f, 1f));
+    }
+    
     void Update()
     {
         float moveX = 0f;

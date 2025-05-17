@@ -54,32 +54,17 @@ public class DisappearingPlatform : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (isTriggered || isShaking)
+        if (isTriggered)
         {
             //Debug.Log("오답임니다.");
             if (isShaking)
-            {
-                elapsedTime += 0.1f;
-
-                float xOffset = Mathf.Sin(elapsedTime * shakeFrequency * Mathf.PI * 2) * shakeAmplitude;
-                transform.position = originalPosition + new Vector3(xOffset, 0, 0);
-
-                if (elapsedTime >= shakeDuration)
-                {
-                    isShaking = false;
-                    transform.position = originalPosition; // 원래 위치로 복구
-                }
-            }
-            else if(isTriggered)
             {
                 Vector3 pos = transform.position;
                 pos.y -= 0.01f;
                 transform.position = pos;
                 fadeTimer += 0.1f;
                 float alpha = Mathf.Lerp(originalColor.a, 0f, fadeTimer / fadeDuration);
-                Color newColor = originalColor;
-                newColor.a = alpha;
-                rend.material.color = newColor;
+                SetAlpha(alpha);
                 if (fadeTimer >= fadeDuration)
                 {
                     gameObject.SetActive(false);
