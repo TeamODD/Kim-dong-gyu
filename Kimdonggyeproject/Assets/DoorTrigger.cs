@@ -10,8 +10,9 @@ public class DoorTrigger : MonoBehaviour
     public VideoPlayer videoPlayer;     // VideoPlayer
     public Image fadeImage;             // 검은 화면용 UI Image (Canvas에 있어야 함)
     public GameObject pressFPlane; // Plane 오브젝트 연결할 변수
-    public GameObject wasd;
-    public GameObject esc;
+    public Image wasd;
+    public Image escskip;
+    public Image escclose;
 
     public string nextSceneName = "NextScene"; // 다음 씬 이름 입력
     private bool isPlayerNearby = false;
@@ -51,7 +52,8 @@ public class DoorTrigger : MonoBehaviour
 
     private void Start()
     {
-        esc.SetActive(false);
+        escclose.gameObject.SetActive(false);
+        escskip.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -60,7 +62,7 @@ public class DoorTrigger : MonoBehaviour
         {
             Debug.Log("컷씬 진행");
             StartCoroutine(PlayCutsceneWithFade());
-            wasd.SetActive(false);
+            wasd.gameObject.SetActive(false);
         }
 
         if (hasStarted && !hasEnded && Input.GetKeyDown(KeyCode.Escape) && exitCooldown <= 0f)
@@ -95,7 +97,9 @@ public class DoorTrigger : MonoBehaviour
 
     IEnumerator PlayCutsceneWithFade()
     {
-        wasd.SetActive(false);
+        wasd.gameObject.SetActive(false);
+        escskip.gameObject.SetActive(true);
+
         hasStarted = true;
         yield return StartCoroutine(Fade(0, 1, 1f));
         videoPlayer.Play();
@@ -104,7 +108,8 @@ public class DoorTrigger : MonoBehaviour
 
     void StopAndShowLastFrame()
     {
-        esc.SetActive(true);
+        escclose.gameObject.SetActive(true);
+        escskip.gameObject.SetActive(false);
         videoScreen.enabled = true; // 꺼져 있었으면 다시 보여주기
         videoPlayer.frame = (long)videoPlayer.frameCount - 1;
         videoPlayer.Pause();
@@ -113,8 +118,7 @@ public class DoorTrigger : MonoBehaviour
     IEnumerator FadeToWhiteAndExit()
     {
         // 사진 숨기기
-        if (esc != null)
-            esc.gameObject.SetActive(false);
+        escclose.gameObject.SetActive(false);
 
         yield return StartCoroutine(FadeColor(Color.clear, Color.white, 1f));
         yield return new WaitForSeconds(0.5f);

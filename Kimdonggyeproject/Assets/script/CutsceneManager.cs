@@ -10,7 +10,8 @@ public class CutsceneManager : MonoBehaviour
     public Image fadeImage;
     public RawImage videoRawImage;
     public VideoPlayer videoPlayer;
-    public Image endingPhotoImage; 
+    public Image endingPhotoImage;
+    public Image ESCSkip;
 
 
     private bool hasStarted = false;
@@ -27,6 +28,7 @@ public class CutsceneManager : MonoBehaviour
         fadeImage.color = new Color(0, 0, 0, 0);
         videoPlayer.Stop();
         endingPhotoImage.gameObject.SetActive(false);
+        ESCSkip.gameObject.SetActive(false);
     }
 
     void Update()
@@ -75,6 +77,8 @@ public class CutsceneManager : MonoBehaviour
         videoRawImage.enabled = true;
         videoPlayer.Play();
         yield return StartCoroutine(Fade(1, 0, 0.5f));
+
+        ESCSkip.gameObject.SetActive(true);
     }
 
     void StopAndShowLastFrame()
@@ -82,6 +86,7 @@ public class CutsceneManager : MonoBehaviour
         videoPlayer.frame = (long)videoPlayer.frameCount - 1;
         videoPlayer.Pause();
         videoRawImage.enabled = true;
+        ESCSkip.gameObject.SetActive(false);
 
         // 사진 띄우기
         if (endingPhotoImage != null)
