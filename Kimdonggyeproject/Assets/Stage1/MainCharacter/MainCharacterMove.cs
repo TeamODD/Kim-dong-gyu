@@ -46,7 +46,6 @@ public class PlayerMovementRB : MonoBehaviour
             checking = false;
             rb.AddForce(Vector3.up * 12, ForceMode.Impulse);
             animator.SetInteger("Event", 1);
-            //Thread.Sleep(1000);
             GetComponent<Collider>().enabled = false;
             Invoke("Dead", 1.6f);
         }
@@ -64,7 +63,7 @@ public class PlayerMovementRB : MonoBehaviour
         {
             Debug.Log("세이브 포인트 설정");
             savepoint = collision.gameObject.transform.position;
-            savepoint.y = 3;
+            savepoint.y += 4;
         }
         else if (collision.gameObject.CompareTag("END") && checking == true) //종료 조건
         {

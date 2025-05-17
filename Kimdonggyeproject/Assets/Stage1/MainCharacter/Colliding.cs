@@ -18,7 +18,7 @@ public class Colliding : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.layer == 11)
+        if(collision.gameObject.layer == 11) //투명 벽벽
             return;
         playersc.HandleCollision(collision);
         jumpsc.HandleCollision(collision);
