@@ -4,6 +4,7 @@ using System.Collections;
 using System.Threading;
 using UnityEngine.InputSystem;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovementRB : MonoBehaviour
@@ -188,7 +189,7 @@ public class PlayerMovementRB : MonoBehaviour
     }
     void END()
     {
-        //종료 후 실행시킬 코드드
+        SceneManager.LoadScene("End");
     }
 }
 

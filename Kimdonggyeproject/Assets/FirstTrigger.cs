@@ -1,54 +1,58 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class FirstTrigger : MonoBehaviour
 {
-    public GameObject pressFPlane; // Plane ¿ÀºêÁ§Æ® ¿¬°áÇÒ º¯¼ö
+    public GameObject pressFPlane; // Plane ì˜¤ë¸Œì íŠ¸ ì—°ê²°í•  ë³€ìˆ˜
+    public GameObject Stage2Plane; // ë°°ê²½ ì˜¤ë²„ë© ë³€ìˆ˜
+    public GameObject StageEmptyPlane;
     private bool isPlayerNearby = false;
     private bool hasShownMessage = false;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (ObjectActivationManage.currentPuzzleIndex == 0) 
-        {
+        
             if (other.CompareTag("Player"))
             {
                 isPlayerNearby = true;
 
                 if (!hasShownMessage)
                 {
-                    pressFPlane.SetActive(true); // PlaneÀ» º¸ÀÌ°Ô
+                    pressFPlane.SetActive(true); // Planeì„ ë³´ì´ê²Œ
                     hasShownMessage = true;
                 }
             }
-        }
+        
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if(ObjectActivationManage.currentPuzzleIndex == 0)
-        {
+        
             if (other.CompareTag("Player"))
             {
                 isPlayerNearby = false;
                 hasShownMessage = false;
 
-                pressFPlane.SetActive(false); // ¿µ¿ª ¹ş¾î³ª¸é ´Ù½Ã ¼û±â±â
+                pressFPlane.SetActive(false); // ì˜ì—­ ë²—ì–´ë‚˜ë©´ ë‹¤ì‹œ ìˆ¨ê¸°ê¸°
             }
-        }
+        
     }
 
     private void Start()
     {
-        
+        Stage2Plane.SetActive(false);
+        StageEmptyPlane.SetActive(true);
     }
 
     private void Update()
     {
-        if (isPlayerNearby && Input.GetKeyDown(KeyCode.F) && ObjectActivationManage.currentPuzzleIndex == 0)
+        if (isPlayerNearby && Input.GetKeyDown(KeyCode.F))
         {
+            // ì„œì„œíˆ ë‚˜íƒ€ë‚˜ê²Œ (í˜ì´ë“œì¸ ë˜ë ¤ë‚˜)
+            Stage2Plane.SetActive(true);
+            StageEmptyPlane.SetActive(false);
+            Debug.Log("í˜„ì¬ ì¸ë±ìŠ¤ëŠ” "+ ObjectActivationManage.currentPuzzleIndex);
+            ObjectActivationManage.currentPuzzleIndex++; // 1ë²ˆ í¼ì¦ ê´€ë ¨ ì˜¤ë¸Œì íŠ¸ ì˜¤ë²„ë© : index++;
             
-            // ¹è°æ ¿À¹ö·¦
-            ObjectActivationManage.currentPuzzleIndex++; // 1¹ø ÆÛÁñ °ü·Ã ¿ÀºêÁ§Æ® ¿À¹ö·¦ : index++;
         }
     }
 }
