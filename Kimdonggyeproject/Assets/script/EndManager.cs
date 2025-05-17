@@ -47,7 +47,7 @@ public class EndManager : MonoBehaviour
             StopAndShowLastFrame();
         }
 
-        if (canExit && Input.GetKeyDown(KeyCode.Escape) && exitCooldown <= 0f)
+        if (canExit && Input.GetKeyDown(KeyCode.Escape) && exitCooldown <= 0f && videoend)
         {
             Fade(1, 0, 2f);
             EndImage.SetActive(true);
