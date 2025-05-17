@@ -470,6 +470,10 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 760071285886700055, guid: fd42103399649fe46aa7b160c926e865, type: 3}
+      propertyPath: m_LayerOverridePriority
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 1100578360098064740, guid: fd42103399649fe46aa7b160c926e865, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.1
@@ -1281,7 +1285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3b5f0ed4122e574a9f069d1df8459b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 100
+  moveSpeed: 5
   saveTargets: []
   cam: {fileID: 1097101876}
   camerasc: {fileID: 0}
