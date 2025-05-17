@@ -213,11 +213,11 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 291371446}
   - {fileID: 479391323}
   - {fileID: 409481909}
   - {fileID: 993758289}
   - {fileID: 457590861}
-  - {fileID: 291371446}
   - {fileID: 1941981788}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -290,15 +290,15 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 291371443}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2.1486263}
-  m_LocalScale: {x: 0.00107, y: 0.00107, z: 0.00107}
+  m_LocalPosition: {x: 0, y: 0, z: 18}
+  m_LocalScale: {x: 1, y: 1, z: 0.00107}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 40273535}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -1918.9827, y: -0.8865967}
+  m_AnchoredPosition: {x: -120, y: 30}
   m_SizeDelta: {x: 228, y: 46}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &409481908
@@ -547,6 +547,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5688772838049440879, guid: fd42103399649fe46aa7b160c926e865, type: 3}
+    - {fileID: 3097360502676711424, guid: fd42103399649fe46aa7b160c926e865, type: 3}
     m_RemovedGameObjects:
     - {fileID: 2250898238487473415, guid: fd42103399649fe46aa7b160c926e865, type: 3}
     m_AddedGameObjects:
@@ -1591,6 +1592,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1546510230}
   - component: {fileID: 1546510231}
+  - component: {fileID: 1546510232}
   m_Layer: 0
   m_Name: DoorTrigger
   m_TagString: Untagged
@@ -1632,6 +1634,27 @@ MonoBehaviour:
   wasd: {fileID: 457590860}
   esc: {fileID: 291371443}
   nextSceneName: Stage1-1
+--- !u!65 &1546510232
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546510229}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1886054854
 GameObject:
   m_ObjectHideFlags: 0
@@ -1848,24 +1871,24 @@ VideoPlayer:
   m_VideoClip: {fileID: 32900000, guid: 96ff5f9bf7ffaab40b788f5d88d92b48, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
-  m_TargetCamera: {fileID: 0}
+  m_TargetCamera: {fileID: 1097101876}
   m_TargetTexture: {fileID: 8400000, guid: 08239fc592bd49f45b79dbe15e6e6ccf, type: 2}
   m_TimeReference: 0
   m_TargetMaterialRenderer: {fileID: 0}
   m_TargetMaterialProperty: <noninit>
-  m_RenderMode: 2
+  m_RenderMode: 1
   m_AspectRatio: 2
   m_DataSource: 0
   m_TimeUpdateMode: 2
   m_PlaybackSpeed: 1
-  m_AudioOutputMode: 2
+  m_AudioOutputMode: 1
   m_TargetAudioSources: []
   m_DirectAudioVolumes: []
   m_Url: 
   m_EnabledAudioTracks: 
   m_DirectAudioMutes: 
   m_ControlledAudioTrackCount: 0
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_SkipOnDrop: 1
   m_Looping: 0
   m_WaitForFirstFrame: 1
