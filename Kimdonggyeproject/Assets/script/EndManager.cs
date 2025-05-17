@@ -7,8 +7,8 @@ using System.Collections;
 
 public class EndManager : MonoBehaviour
 {
-    public GameObject EndImage;
-    public GameObject ESC;
+    public Image EndImage;
+    public Image ESCskip;
     public RawImage videoRawImage;
     public Image fadeImage;
     public VideoPlayer videoPlayer;
@@ -21,13 +21,14 @@ public class EndManager : MonoBehaviour
 
     void Start()
     {
-        ESC.SetActive(false);
-        EndImage.SetActive(false);
+        ESCskip.gameObject.SetActive(true);
+        EndImage.gameObject.SetActive(false);
         fadeImage.gameObject.SetActive(true);
         fadeImage.color = new Color(0, 0, 0, 0);
         videoRawImage.enabled = true;
 
         Fade(0, 1, 2f);
+        //if()
         videoPlayer.Play();
     }
 
@@ -47,12 +48,6 @@ public class EndManager : MonoBehaviour
             StopAndShowLastFrame();
         }
 
-        if (canExit && Input.GetKeyDown(KeyCode.Escape) && exitCooldown <= 0f && videoend)
-        {
-            Fade(1, 0, 2f);
-            EndImage.SetActive(true);
-            quit = true;
-        }
 
         if (quit && Input.anyKeyDown)
         {
@@ -65,8 +60,10 @@ public class EndManager : MonoBehaviour
         videoPlayer.frame = (long)videoPlayer.frameCount - 1;
         videoPlayer.Pause();
         canExit = true;
-        videoRawImage.enabled = true;
-        ESC.SetActive(true);
+        quit = true;
+        videoRawImage.enabled = false;
+        EndImage.gameObject.SetActive(true);
+        ESCskip.gameObject.SetActive(false);
     }
 
     IEnumerator Fade(float from, float to, float duration)
