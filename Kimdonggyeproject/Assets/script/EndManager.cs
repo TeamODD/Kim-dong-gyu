@@ -27,13 +27,13 @@ public class EndManager : MonoBehaviour
         fadeImage.color = new Color(0, 0, 0, 0);
         videoRawImage.enabled = true;
 
-        Fade(0, 1, 2f);
-        //if()
+        Fade(1f, 0f, 0.5f);
         videoPlayer.Play();
     }
 
     void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             videoend = true;
